@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<uexplugins>
+    <plugin
+        className="org.zywx.wbpalmstar.plugin.uexgaodenavi.EUExGaodeNavi" uexName="uexGaodeNavi" >
+        <method name="init" type="1"/>
+        <method name="calculateWalkRoute" type="1"/>
+        <method name="calculateDriveRoute" type="1"/>
+        <method name="onArriveDestination" type="2"/>
+        <method name="onGetNavigationText" type="2"/>
+        <method name="onReCalculateRouteForTrafficJam" type="2"/>
+        <method name="onReCalculateRouteForYaw" type="2"/>
+        <method name="onReCalculateRouteForYaw" type="2"/>
+        <method name="onStartNavi" type="2"/>
+</plugin>
+</uexplugins>
