@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport"
           content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/index.css">
@@ -40,6 +40,7 @@
         uexGaodeNavi.startNavi(data);
     }
 
+
         window.uexOnload = function(type){
             if(type == 0){
             uexGaodeNavi.cbInit = cbInit;
@@ -50,6 +51,7 @@
             uexGaodeNavi.onReCalculateRouteForYaw = onReCalculateRouteForYaw;
             uexGaodeNavi.onReCalculateRouteForYaw = onReCalculateRouteForYaw;
             uexGaodeNavi.onStartNavi = onStartNavi;
+            uexGaodeNavi.onNaviCancel = onNaviCancel;
 
             }
         }
@@ -58,6 +60,10 @@
     }
 
     function cbCalculateRoute(info){
+        alert(info);
+    }
+
+    function cbCalculateDriveRoute(info){
         alert(info);
     }
 
@@ -85,8 +91,9 @@
         alert(info);
     }
 
-
-
+    function onNaviCancel(info){
+        alert(info);
+    }
 
 
     </script>
@@ -96,13 +103,15 @@
 <div class="tit">uexGaodeNavi</div>
 <div class="conbor">
     <div class="consj">
-        <input class='btn' type='button' value='init' onclick='init()'>
+            <input class='btn' type='button' value='init' onclick='init()'>
 
-        <input class='btn' type='button' value='calculateWalkRoute' onclick='calculateWalkRoute()'>
+            <input class='btn' type='button' value='calculateWalkRoute' onclick='calculateWalkRoute()'>
 
-        <input class='btn' type='button' value='calculateDriveRoute' onclick='calculateDriveRoute()'>
+            <input class='btn' type='button' value='calculateDriveRoute' onclick='calculateDriveRoute()'>
 
+            <input class='btn' type='button' value='stopNavi' onclick='stopNavi()'>
         <input class='btn' type='button' value='startNavi' onclick='startNavi()'>
+
     </div>
 </div>
 </body>

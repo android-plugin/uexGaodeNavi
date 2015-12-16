@@ -8,4 +8,5 @@ public class JsConst {
     public static final String ON_RE_CALCULATE_ROUTE_FOR_TRAFFIC_JAM = "uexGaodeNavi.onReCalculateRouteForTrafficJam";
     public static final String ON_RE_CALCULATE_ROUTE_FOR_YAW = "uexGaodeNavi.onReCalculateRouteForYaw";
     public static final String ON_START_NAVI = "uexGaodeNavi.onStartNavi";
+     public static final String ON_NAVI_CANCEL = "uexGaodeNavi.onNaviCancel";
 }

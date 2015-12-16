@@ -40,7 +40,7 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
 
     public static final String FRAGMENT_ID = "gaode_map_navi_id";
 
-    public int mNaviType=AMapNavi.GPSNaviMode;
+    public int mNaviType = AMapNavi.GPSNaviMode;
 
     public EUExGaodeNavi(Context context, EBrowserView eBrowserView) {
         super(context, eBrowserView);
@@ -56,8 +56,8 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
         String json = params[0];
         if (mAMapNavi == null) {
             mAMapNavi = AMapNavi.getInstance(mContext.getApplicationContext());
+            mAMapNavi.setAMapNaviListener(new MyAMapNaviListener(this));
         }
-        mAMapNavi.setAMapNaviListener(new MyAMapNaviListener(this));
         mAMapNavi.setEmulatorNaviSpeed(150);
         if (mMapFragment == null) {
             mMapFragment = new NaviMapFragment();
@@ -66,14 +66,19 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
     }
 
     public void showMapView() {
+        if (mMapFragment==null){
+            return;
+        }
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         addFragmentToCurrentWindow(mMapFragment, layoutParams, FRAGMENT_ID);
     }
 
-    public void removeMapView(){
-        mMapFragment.onDestroy();
-        removeFragmentFromWindow(mMapFragment);
+    public void removeMapView() {
+        if (mMapFragment != null) {
+            mMapFragment.onDestroy();
+            removeFragmentFromWindow(mMapFragment);
+        }
     }
 
     public void calculateWalkRoute(String[] params) {
@@ -97,13 +102,13 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
         calculateDriveRoute(inputVO);
     }
 
-    public void startNavi(String[] params){
+    public void startNavi(String[] params) {
         String json = params[0];
-        if (!TextUtils.isEmpty(json)){
-            StartNaviInputVO inputVO=DataHelper.gson.fromJson(json,StartNaviInputVO.class);
-            if (inputVO.type==1){
+        if (!TextUtils.isEmpty(json)) {
+            StartNaviInputVO inputVO = DataHelper.gson.fromJson(json, StartNaviInputVO.class);
+            if (inputVO.type == 1) {
                 //模拟导航
-                mNaviType=AMapNavi.EmulatorNaviMode;
+                mNaviType = AMapNavi.EmulatorNaviMode;
             }
         }
         showMapView();
@@ -146,6 +151,14 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
         CalculateRouteOutputVO outputVO = new CalculateRouteOutputVO();
         outputVO.result = result;
         callBackPluginJs(JsConst.CALLBACK_CALCULATE_ROUTE, DataHelper.gson.toJson(outputVO));
+    }
+
+
+    private void stopNavi(String[] params) {
+        if (mAMapNavi != null) {
+            mAMapNavi.stopNavi();
+        }
+        removeMapView();
     }
 
     @Override
@@ -229,6 +242,7 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
     @Override
     public void onNaviCancel() {
         removeMapView();
+        callBackPluginJs(JsConst.ON_NAVI_CANCEL, "");
     }
 
     @Override

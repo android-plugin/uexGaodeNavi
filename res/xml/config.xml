@@ -11,5 +11,7 @@
         <method name="onReCalculateRouteForYaw" type="2"/>
         <method name="onReCalculateRouteForYaw" type="2"/>
         <method name="onStartNavi" type="2"/>
+        <method name="onNaviCancel" type="2"/>
+        <method name="stopNavi"/>
 </plugin>
 </uexplugins>
