@@ -8,10 +8,9 @@
 
     <script type="text/javascript">
     function init(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeNavi.init(data);
+        uexGaodeNavi.init(function(info){
+            alert("init result"+JSON.stringify(info));
+        });
     }
 
     function calculateWalkRoute(){
@@ -20,7 +19,9 @@
         endPoint:[39.925041, 116.437901]
         };
         var data = JSON.stringify(params);
-        uexGaodeNavi.calculateWalkRoute(data);
+        uexGaodeNavi.calculateWalkRoute(data,function(info){
+            alert("calculateWalkRoute result: \n"+JSON.stringify(info));
+        });
     }
 
     function calculateDriveRoute(){
@@ -29,7 +30,9 @@
         endPoint:[39.925041, 116.437901]
         };
         var data = JSON.stringify(params);
-        uexGaodeNavi.calculateDriveRoute(data);
+        uexGaodeNavi.calculateDriveRoute(data,function(info){
+            alert("calculateDriveRoute result: \n"+JSON.stringify(info));
+        });
     }
 
     function startNavi(){
@@ -43,7 +46,6 @@
 
         window.uexOnload = function(type){
             if(type == 0){
-            uexGaodeNavi.cbInit = cbInit;
             uexGaodeNavi.cbCalculateRoute = cbCalculateRoute;
             uexGaodeNavi.onArriveDestination = onArriveDestination;
             uexGaodeNavi.onGetNavigationText = onGetNavigationText;
@@ -55,9 +57,6 @@
 
             }
         }
-    function cbInit(info){
-        alert(info);
-    }
 
     function cbCalculateRoute(info){
         alert(info);

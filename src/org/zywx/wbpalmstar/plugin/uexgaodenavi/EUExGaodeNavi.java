@@ -42,6 +42,10 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
 
     public int mNaviType = AMapNavi.GPSNaviMode;
 
+    public MyAMapNaviListener mNaviListener;
+
+    public int mCalculateRouteCallbackId=-1;
+
     public EUExGaodeNavi(Context context, EBrowserView eBrowserView) {
         super(context, eBrowserView);
     }
@@ -53,11 +57,16 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
 
 
     public void init(String[] params) {
-        String json = params[0];
+        int callbackId=-1;
+        if (params.length>0){
+            callbackId= Integer.parseInt(params[0]);
+        }
         if (mAMapNavi == null) {
             mAMapNavi = AMapNavi.getInstance(mContext.getApplicationContext());
-            mAMapNavi.setAMapNaviListener(new MyAMapNaviListener(this));
+            mNaviListener=new MyAMapNaviListener(this);
+            mAMapNavi.setAMapNaviListener(mNaviListener);
         }
+        mNaviListener.mInitCallbackId=callbackId;
         mAMapNavi.setEmulatorNaviSpeed(150);
         if (mMapFragment == null) {
             mMapFragment = new NaviMapFragment();
@@ -87,6 +96,9 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
             return;
         }
         String json = params[0];
+        if (params.length>1){
+            mCalculateRouteCallbackId= Integer.parseInt(params[1]);
+        }
         CalculateRouteInputVO inputVO = DataHelper.gson.fromJson(json, CalculateRouteInputVO.class);
 
         calculateWalkRoute(inputVO);
@@ -98,6 +110,9 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
             return;
         }
         String json = params[0];
+        if (params.length>1){
+            mCalculateRouteCallbackId= Integer.parseInt(params[1]);
+        }
         CalculateRouteInputVO inputVO = DataHelper.gson.fromJson(json, CalculateRouteInputVO.class);
         calculateDriveRoute(inputVO);
     }
@@ -150,8 +165,12 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
     public void callbackCalculateRoute(boolean result) {
         CalculateRouteOutputVO outputVO = new CalculateRouteOutputVO();
         outputVO.result = result;
-        callBackPluginJs(JsConst.CALLBACK_CALCULATE_ROUTE, DataHelper.gson.toJson(outputVO));
-    }
+        if(mCalculateRouteCallbackId!=-1){
+            callbackToJs(mCalculateRouteCallbackId,false,DataHelper.gson.toJsonTree(outputVO));
+        }else{
+            callBackPluginJs(JsConst.CALLBACK_CALCULATE_ROUTE, DataHelper.gson.toJson(outputVO));
+        }
+     }
 
 
     private void stopNavi(String[] params) {
