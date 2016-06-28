@@ -27,6 +27,7 @@ import com.amap.api.navi.model.AMapNaviLocation;
 import com.amap.api.navi.model.NaviInfo;
 import com.autonavi.tbt.TrafficFacilityInfo;
 
+import org.zywx.wbpalmstar.base.BDebug;
 import org.zywx.wbpalmstar.engine.DataHelper;
 import org.zywx.wbpalmstar.plugin.uexgaodenavi.vo.InitOutputVO;
 import org.zywx.wbpalmstar.plugin.uexgaodenavi.vo.OnGetNavigationTextVO;
@@ -103,6 +104,7 @@ public class MyAMapNaviListener implements AMapNaviListener {
 
     @Override
     public void onCalculateRouteFailure(int i) {
+        BDebug.i("onCalculateRouteFailure: "+i);
         mEUExGaodeNavi.callbackCalculateRoute(false);
     }
 

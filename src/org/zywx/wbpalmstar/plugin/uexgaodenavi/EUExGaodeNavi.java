@@ -126,6 +126,9 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
                 mAMapNavi.calculateWalkRoute(startNaviLatLng, endNaviLatLng);
             }
         } catch (Exception e) {
+            if (BDebug.DEBUG){
+                e.printStackTrace();
+            }
             callbackCalculateRoute(false);
         }
     }
@@ -141,6 +144,9 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
                 mAMapNavi.calculateDriveRoute(mStartList, mEndList, mWayPointList, inputVO.driveMode);
             }
         } catch (Exception e) {
+            if (BDebug.DEBUG){
+                e.printStackTrace();
+            }
             callbackCalculateRoute(false);
         }
 
