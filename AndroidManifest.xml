@@ -23,7 +23,7 @@
         </activity>
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="$uexGaodeNavi_appKey$"/>
+            android:value="209883bc35ae7d04176febb72a856afe"/>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
