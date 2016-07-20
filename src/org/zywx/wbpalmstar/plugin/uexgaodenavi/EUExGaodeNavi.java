@@ -53,7 +53,6 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
 
 
     public void init(String[] params) {
-        String json = params[0];
         if (mAMapNavi == null) {
             mAMapNavi = AMapNavi.getInstance(mContext.getApplicationContext());
             mAMapNavi.setAMapNaviListener(new MyAMapNaviListener(this));
