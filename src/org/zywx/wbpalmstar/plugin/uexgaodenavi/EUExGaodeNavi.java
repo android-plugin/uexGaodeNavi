@@ -42,20 +42,33 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
 
     public int mNaviType = AMapNavi.GPSNaviMode;
 
+    private MyAMapNaviListener mAMapNaviListener=null;
+
     public EUExGaodeNavi(Context context, EBrowserView eBrowserView) {
         super(context, eBrowserView);
     }
 
     @Override
     protected boolean clean() {
+        if (mAMapNaviListener!=null){
+            if (mAMapNavi!=null){
+                mAMapNavi.removeAMapNaviListener(mAMapNaviListener);
+                mAMapNavi.destroy();
+                mAMapNavi=null;
+            }
+            mAMapNaviListener=null;
+        }
         return false;
     }
 
 
     public void init(String[] params) {
+        if (mAMapNaviListener==null){
+            mAMapNaviListener=new MyAMapNaviListener(this);
+        }
         if (mAMapNavi == null) {
             mAMapNavi = AMapNavi.getInstance(mContext.getApplicationContext());
-            mAMapNavi.setAMapNaviListener(new MyAMapNaviListener(this));
+            mAMapNavi.setAMapNaviListener(mAMapNaviListener);
         }
         mAMapNavi.setEmulatorNaviSpeed(150);
         if (mMapFragment == null) {
@@ -114,6 +127,16 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
         mAMapNavi.startNavi(mNaviType);
     }
 
+    public void destroy(String[] params){
+        if (mAMapNaviListener!=null){
+            if (mAMapNavi!=null){
+                mAMapNavi.removeAMapNaviListener(mAMapNaviListener);
+                mAMapNavi.destroy();
+                mAMapNavi=null;
+            }
+            mAMapNaviListener=null;
+        }
+    }
 
     private void calculateWalkRoute(CalculateRouteInputVO inputVO) {
         try {

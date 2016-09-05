@@ -27,7 +27,7 @@ android {
         signingConfig signingConfigs.config
         applicationId 'org.zywx.wbpalmstar.widgetone.uexgaodenavi'
         minSdkVersion 14
-        targetSdkVersion 19
+        targetSdkVersion 17
     }
     sourceSets {
         main {

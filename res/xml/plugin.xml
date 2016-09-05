@@ -14,5 +14,6 @@
         <method name="startNavi"/>
         <method name="onNaviCancel"/>
         <method name="stopNavi"/>
+        <method name="destroy"/>
     </plugin>
 </uexplugins>
