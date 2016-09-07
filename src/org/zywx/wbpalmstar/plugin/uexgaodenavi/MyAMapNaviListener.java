@@ -24,6 +24,9 @@ import com.amap.api.navi.model.AMapLaneInfo;
 import com.amap.api.navi.model.AMapNaviCross;
 import com.amap.api.navi.model.AMapNaviInfo;
 import com.amap.api.navi.model.AMapNaviLocation;
+import com.amap.api.navi.model.AMapNaviTrafficFacilityInfo;
+import com.amap.api.navi.model.AimLessModeCongestionInfo;
+import com.amap.api.navi.model.AimLessModeStat;
 import com.amap.api.navi.model.NaviInfo;
 import com.autonavi.tbt.TrafficFacilityInfo;
 
@@ -139,6 +142,11 @@ public class MyAMapNaviListener implements AMapNaviListener {
     }
 
     @Override
+    public void OnUpdateTrafficFacility(AMapNaviTrafficFacilityInfo aMapNaviTrafficFacilityInfo) {
+
+    }
+
+    @Override
     public void OnUpdateTrafficFacility(TrafficFacilityInfo trafficFacilityInfo) {
 
     }
@@ -160,6 +168,31 @@ public class MyAMapNaviListener implements AMapNaviListener {
 
     @Override
     public void hideLaneInfo() {
+
+    }
+
+    @Override
+    public void onCalculateMultipleRoutesSuccess(int[] ints) {
+
+    }
+
+    @Override
+    public void notifyParallelRoad(int i) {
+
+    }
+
+    @Override
+    public void OnUpdateTrafficFacility(AMapNaviTrafficFacilityInfo[] aMapNaviTrafficFacilityInfos) {
+
+    }
+
+    @Override
+    public void updateAimlessModeStatistics(AimLessModeStat aimLessModeStat) {
+
+    }
+
+    @Override
+    public void updateAimlessModeCongestionInfo(AimLessModeCongestionInfo aimLessModeCongestionInfo) {
 
     }
 }

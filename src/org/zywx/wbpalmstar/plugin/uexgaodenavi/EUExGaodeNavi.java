@@ -303,4 +303,9 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
 
     }
 
+    @Override
+    public void onNaviViewLoaded() {
+
+    }
+
 }

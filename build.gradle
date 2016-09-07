@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
-    compile files('libs/AMap_Android_3DMapSDK_V3.1.0_20151124.jar')
 }
 
 android {
@@ -55,6 +54,11 @@ android {
     }
     productFlavors {
 
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.config
+        }
     }
 }
 apply from: "https://raw.githubusercontent.com/android-plugin/gradle-plugin/master/buildPlugin.gradle"
