@@ -64,7 +64,7 @@ public class MyAMapNaviListener implements AMapNaviListener {
         InitOutputVO outputVO=new InitOutputVO();
         outputVO.result=result;
         if(initCallbackId!=-1){
-            this.mEUExGaodeNavi.callbackToJs(initCallbackId,false,DataHelper.gson.toJsonTree(outputVO));
+            this.mEUExGaodeNavi.callbackToJs(initCallbackId,false,result?0:1);
         }else{
             this.mEUExGaodeNavi.callBackPluginJs(JsConst.CALLBACK_INIT, DataHelper.gson.toJson(outputVO));
         }

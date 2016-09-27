@@ -172,14 +172,14 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
         CalculateRouteOutputVO outputVO = new CalculateRouteOutputVO();
         outputVO.result = result;
         if(mCalculateRouteCallbackId!=-1){
-            callbackToJs(mCalculateRouteCallbackId,false,DataHelper.gson.toJsonTree(outputVO));
+            callbackToJs(mCalculateRouteCallbackId,false,result?0:1);
         }else{
             callBackPluginJs(JsConst.CALLBACK_CALCULATE_ROUTE, DataHelper.gson.toJson(outputVO));
         }
      }
 
 
-    private void stopNavi(String[] params) {
+    public void stopNavi(String[] params) {
         if (mAMapNavi != null) {
             mAMapNavi.stopNavi();
         }

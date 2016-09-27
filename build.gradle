@@ -50,6 +50,7 @@ android {
         signingConfig signingConfigs.config
         applicationId 'org.zywx.wbpalmstar.widgetone.uexgaodenavi'
         minSdkVersion 14
+        targetSdkVersion 14
     }
     sourceSets {
         main {
@@ -76,6 +77,7 @@ android {
         release.setRoot('build-types/release')
     }
     productFlavors {
+
     }
     buildTypes {
         debug {
