@@ -41,6 +41,9 @@ import org.zywx.wbpalmstar.plugin.uexgaodenavi.vo.OnStartNaviVO;
  */
 public class MyAMapNaviListener implements AMapNaviListener {
 
+    public int mInitCallbackId=-1;
+
+
     private EUExGaodeNavi mEUExGaodeNavi;
 
     public MyAMapNaviListener(EUExGaodeNavi euExBase){
@@ -49,19 +52,23 @@ public class MyAMapNaviListener implements AMapNaviListener {
 
     @Override
     public void onInitNaviFailure() {
-        callbackInit(false);
+        callbackInit(false,mInitCallbackId);
     }
 
     @Override
     public void onInitNaviSuccess() {
-        callbackInit(true);
+        callbackInit(true, mInitCallbackId);
     }
 
-    private void callbackInit(boolean result){
+    private void callbackInit(boolean result, int initCallbackId){
         InitOutputVO outputVO=new InitOutputVO();
         outputVO.result=result;
-        this.mEUExGaodeNavi.callBackPluginJs(JsConst.CALLBACK_INIT, DataHelper.gson.toJson(outputVO));
-    }
+        if(initCallbackId!=-1){
+            this.mEUExGaodeNavi.callbackToJs(initCallbackId,false,result?0:1);
+        }else{
+            this.mEUExGaodeNavi.callBackPluginJs(JsConst.CALLBACK_INIT, DataHelper.gson.toJson(outputVO));
+        }
+     }
 
     @Override
     public void onStartNavi(int i) {
@@ -107,7 +114,7 @@ public class MyAMapNaviListener implements AMapNaviListener {
 
     @Override
     public void onCalculateRouteFailure(int i) {
-        BDebug.i("onCalculateRouteFailure: "+i);
+        BDebug.e("onCalculateRouteFailure",i);
         mEUExGaodeNavi.callbackCalculateRoute(false);
     }
 

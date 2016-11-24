@@ -1,7 +1,31 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.2'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
 apply plugin: 'com.android.application'
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+    maven {
+        url 'https://raw.githubusercontent.com/android-plugin/mvn-repo/master/'
+    }
+}
 
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
+    compile 'org.appcan:engine:+:systemRelease@aar'
+    compile files('libs/AMap_3DMap_V3.3.2_20160525.jar')
+    compile files('libs/AMap3DMap_3.3.2_AMapNavi_1.8.0_20160524.jar')
 }
 
 android {
@@ -26,7 +50,7 @@ android {
         signingConfig signingConfigs.config
         applicationId 'org.zywx.wbpalmstar.widgetone.uexgaodenavi'
         minSdkVersion 14
-        targetSdkVersion 17
+        targetSdkVersion 14
     }
     sourceSets {
         main {
@@ -59,6 +83,11 @@ android {
         debug {
             signingConfig signingConfigs.config
         }
+        release {
+            signingConfig signingConfigs.config
+        }
     }
 }
+
+
 apply from: "https://raw.githubusercontent.com/android-plugin/gradle-plugin/master/buildPlugin.gradle"
