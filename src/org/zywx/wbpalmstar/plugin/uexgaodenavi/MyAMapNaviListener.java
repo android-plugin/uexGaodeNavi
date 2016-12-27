@@ -54,11 +54,13 @@ public class MyAMapNaviListener implements AMapNaviListener {
 
     @Override
     public void onInitNaviFailure() {
+        BDebug.d("onInitNaviFailure");
         callbackInit(false,mInitCallbackId);
     }
 
     @Override
     public void onInitNaviSuccess() {
+        BDebug.d("onInitNaviSuccess");
         callbackInit(true, mInitCallbackId);
     }
 

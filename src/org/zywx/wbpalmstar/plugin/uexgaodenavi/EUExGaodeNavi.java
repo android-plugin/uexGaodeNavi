@@ -85,7 +85,7 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
 
     public void removeMapView() {
         if (mMapFragment != null) {
-            mMapFragment.onDestroy();
+            mMapFragment.clean();
             removeFragmentFromWindow(mMapFragment);
         }
     }
@@ -182,6 +182,7 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
     public void stopNavi(String[] params) {
         if (mAMapNavi != null) {
             mAMapNavi.stopNavi();
+            mAMapNavi.destroy();
         }
         removeMapView();
     }

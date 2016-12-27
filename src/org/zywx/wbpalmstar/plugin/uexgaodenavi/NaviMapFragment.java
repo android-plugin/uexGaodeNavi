@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 
 import com.amap.api.navi.AMapNaviView;
 
+import com.amap.api.navi.AMapNaviViewListener;
 import org.zywx.wbpalmstar.base.BDebug;
 import org.zywx.wbpalmstar.base.view.BaseFragment;
 import org.zywx.wbpalmstar.engine.universalex.EUExUtil;
@@ -55,7 +56,11 @@ public class NaviMapFragment extends BaseFragment {
 
     @Override
     public void onDestroy() {
+        clean();
         super.onDestroy();
+    }
+
+    public void clean(){
         if (mNaviView!=null) {
             mNaviView.onDestroy();
             mNaviView=null;
