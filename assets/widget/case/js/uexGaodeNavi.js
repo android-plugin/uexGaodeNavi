@@ -85,6 +85,7 @@ define(["CC","Rx"],function(CC,Rx){
         };
         uexGaodeNavi.onArriveDestination = function(){
           CC.log("到达目的地!");
+          observer.onCompleted();
         };
         uexGaodeNavi.onNaviCancel = function(){
           CC.log("用户关闭了导航界面!");

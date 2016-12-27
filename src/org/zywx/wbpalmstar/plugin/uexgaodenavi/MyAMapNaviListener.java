@@ -24,10 +24,12 @@ import com.amap.api.navi.model.AMapLaneInfo;
 import com.amap.api.navi.model.AMapNaviCross;
 import com.amap.api.navi.model.AMapNaviInfo;
 import com.amap.api.navi.model.AMapNaviLocation;
+import com.amap.api.navi.model.AMapNaviStaticInfo;
 import com.amap.api.navi.model.AMapNaviTrafficFacilityInfo;
 import com.amap.api.navi.model.AimLessModeCongestionInfo;
 import com.amap.api.navi.model.AimLessModeStat;
 import com.amap.api.navi.model.NaviInfo;
+import com.autonavi.tbt.NaviStaticInfo;
 import com.autonavi.tbt.TrafficFacilityInfo;
 
 import org.zywx.wbpalmstar.base.BDebug;
@@ -104,6 +106,16 @@ public class MyAMapNaviListener implements AMapNaviListener {
     public void onArriveDestination() {
         mEUExGaodeNavi.removeMapView();
         mEUExGaodeNavi.callBackPluginJs(JsConst.ON_ARRIVE_DESTINATION,"");
+    }
+
+    @Override
+    public void onArriveDestination(NaviStaticInfo naviStaticInfo) {
+
+    }
+
+    @Override
+    public void onArriveDestination(AMapNaviStaticInfo aMapNaviStaticInfo) {
+
     }
 
     @Override

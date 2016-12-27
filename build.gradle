@@ -24,8 +24,6 @@ repositories {
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
     compile 'org.appcan:engine:+:systemRelease@aar'
-    compile files('libs/AMap_3DMap_V3.3.2_20160525.jar')
-    compile files('libs/AMap3DMap_3.3.2_AMapNavi_1.8.0_20160524.jar')
 }
 
 android {
@@ -51,6 +49,7 @@ android {
         applicationId 'org.zywx.wbpalmstar.widgetone.uexgaodenavi'
         minSdkVersion 14
         targetSdkVersion 14
+        multiDexEnabled true
     }
     sourceSets {
         main {
