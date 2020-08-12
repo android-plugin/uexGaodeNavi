@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <uexplugins>
     <plugin
-        uexName="uexGaodeNavi" version="4.3.3" build="4">
-        <info>4:添加动态权限申请</info>
+        uexName="uexGaodeNavi" version="4.4.5" build="2020081201">
+        <info>5:更新SDK：AMap3DMap_7.5.0_AMapNavi_7.5.0_AMapSearch_7.4.0_AMapLocation_5.1.0_20200724</info>
+        <build>4:添加动态权限申请</build>
         <build>3:修复新SDK与高德地图冲突问题</build>
         <build>2:更新SDK</build>
         <build>1:4.0</build>
