@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <uexplugins>
     <plugin
-        uexName="uexGaodeNavi" version="3.0.2" build="2">
-        <info>2:解决与高德地图冲突的问题</info>
+        uexName="uexGaodeNavi" version="3.0.3" build="2017092701">
+        <info>3:修复新SDK与高德地图冲突问题</info>
+        <build>2:解决与高德地图冲突的问题</build>
         <build>1:解决多次回调的问题</build>
         <build>0:init</build>
     </plugin>
