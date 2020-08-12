@@ -1,11 +1,17 @@
 package org.zywx.wbpalmstar.plugin.uexgaodenavi;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.amap.api.navi.AMapNavi;
 import com.amap.api.navi.AMapNaviViewListener;
@@ -13,8 +19,10 @@ import com.amap.api.navi.model.NaviLatLng;
 
 import org.zywx.wbpalmstar.base.BDebug;
 import org.zywx.wbpalmstar.engine.DataHelper;
+import org.zywx.wbpalmstar.engine.EBrowserActivity;
 import org.zywx.wbpalmstar.engine.EBrowserView;
 import org.zywx.wbpalmstar.engine.universalex.EUExBase;
+import org.zywx.wbpalmstar.engine.universalex.EUExCallback;
 import org.zywx.wbpalmstar.plugin.uexgaodenavi.vo.CalculateRouteInputVO;
 import org.zywx.wbpalmstar.plugin.uexgaodenavi.vo.CalculateRouteOutputVO;
 import org.zywx.wbpalmstar.plugin.uexgaodenavi.vo.StartNaviInputVO;
@@ -45,6 +53,7 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
     public MyAMapNaviListener mNaviListener;
 
     public int mCalculateRouteCallbackId=-1;
+    private String[] initParams;
 
     public EUExGaodeNavi(Context context, EBrowserView eBrowserView) {
         super(context, eBrowserView);
@@ -57,20 +66,28 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
 
 
     public void init(String[] params) {
-        int callbackId=-1;
-        if (params.length>1){
-            callbackId= Integer.parseInt(params[1]);
-        }
-        if (mAMapNavi == null) {
-            mAMapNavi = AMapNavi.getInstance(mContext.getApplicationContext());
-            mNaviListener=new MyAMapNaviListener(this);
-            mAMapNavi.setAMapNaviListener(mNaviListener);
-        }
-        mNaviListener.mInitCallbackId=callbackId;
-        mAMapNavi.setEmulatorNaviSpeed(150);
-        if (mMapFragment == null) {
-            mMapFragment = new NaviMapFragment();
-            mMapFragment.setEUExGaodeNavi(this);
+        initParams = params;
+        // android6.0以上动态权限申请
+        if (mContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){
+            requsetPerssions(Manifest.permission.ACCESS_FINE_LOCATION, "请先申请权限"
+                    + Manifest.permission.ACCESS_FINE_LOCATION, 1);
+        } else {
+            int callbackId = -1;
+            if (params.length > 1) {
+                callbackId = Integer.parseInt(params[1]);
+            }
+            if (mAMapNavi == null) {
+                mAMapNavi = AMapNavi.getInstance(mContext.getApplicationContext());
+                mNaviListener = new MyAMapNaviListener(this);
+                mAMapNavi.setAMapNaviListener(mNaviListener);
+            }
+            mNaviListener.mInitCallbackId = callbackId;
+            mAMapNavi.setEmulatorNaviSpeed(150);
+            if (mMapFragment == null) {
+                mMapFragment = new NaviMapFragment();
+                mMapFragment.setEUExGaodeNavi(this);
+            }
         }
     }
 
@@ -304,6 +321,27 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
     @Override
     public void onNaviViewLoaded() {
 
+    }
+
+    @Override
+    public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionResult(requestCode, permissions, grantResults);
+        if (requestCode == 1){
+            if (grantResults[0] != PackageManager.PERMISSION_DENIED){
+                init(initParams);
+            } else {
+                // 对于 ActivityCompat.shouldShowRequestPermissionRationale
+                // 1：用户拒绝了该权限，没有勾选"不再提醒"，此方法将返回true。
+                // 2：用户拒绝了该权限，有勾选"不再提醒"，此方法将返回 false。
+                // 3：如果用户同意了权限，此方法返回false
+                // 拒绝了权限且勾选了"不再提醒"
+                if (!ActivityCompat.shouldShowRequestPermissionRationale((EBrowserActivity)mContext, permissions[0])) {
+                    Toast.makeText(mContext, "请先设置权限" + permissions[0], Toast.LENGTH_LONG).show();
+                } else {
+                    requsetPerssions(Manifest.permission.ACCESS_FINE_LOCATION, "请先申请权限" + permissions[0], 1);
+                }
+            }
+        }
     }
 
 }
