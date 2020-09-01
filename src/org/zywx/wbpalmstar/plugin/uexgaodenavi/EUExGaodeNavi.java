@@ -324,6 +324,16 @@ public class EUExGaodeNavi extends EUExBase implements AMapNaviViewListener {
     }
 
     @Override
+    public void onMapTypeChanged(int i) {
+
+    }
+
+    @Override
+    public void onNaviViewShowMode(int i) {
+
+    }
+
+    @Override
     public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionResult(requestCode, permissions, grantResults);
         if (requestCode == 1){
